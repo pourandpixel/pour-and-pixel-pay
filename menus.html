@@ -27,6 +27,10 @@ const OPTIONS = [
     price: "£795 + £59/month", reviewsIncluded: true,
     blurb: "A new website, your Menu Design, Review Care and website care, all in one. The £59/month covers Review Care and the website Care Plan.",
     link: "https://buy.stripe.com/dRm00kfzXflW0Ni7KL73G0l" },
+  { id: "brand", name: "Brand Identity",
+    price: "£395", single: true,
+    blurb: "Your finished logo in every format, colours, fonts and a complete brand book, developed from the first ideas we sent you.",
+    link: "https://buy.stripe.com/5kQ28safDc9KdA43uv73G0m" },
 ];
 const REVIEW_CARE = { name: "Review Care", price: "£49/month",
   blurb: "Every Google review answered within 48 hours, plus a monthly Google post. Cancel any time." };
@@ -105,7 +109,7 @@ document.getElementById("mail").href = "mailto:" + CONTACT_EMAIL;
 
 function draw() {
   const sel = OPTIONS.find(x => x.id === opt);
-  const incl = !!(sel && sel.reviewsIncluded);
+  const incl = !!(sel && (sel.reviewsIncluded || sel.single));
   document.getElementById("revstep").parentElement.hidden = incl;
   document.getElementById("options").innerHTML = OPTIONS.map(o => `
     <label class="opt ${opt === o.id ? "on" : ""}">
@@ -122,7 +126,7 @@ function draw() {
   document.querySelectorAll('input[name=opt]').forEach(i => i.onchange = () => { opt = i.value; draw(); });
   document.querySelectorAll('input[name=rev]').forEach(i => i.onchange = () => { rev = i.value === "yes"; draw(); });
   if (incl) {
-    document.getElementById("sumline").textContent = sel.name + " (Review Care included)";
+    document.getElementById("sumline").textContent = sel.single ? sel.name : sel.name + " (Review Care included)";
     document.getElementById("total").textContent = sel.price;
     document.getElementById("go").disabled = false;
     return;
@@ -134,7 +138,7 @@ function draw() {
 
 document.getElementById("go").onclick = () => {
   const o = OPTIONS.find(x => x.id === opt);
-  const link = o.reviewsIncluded ? o.link : (rev ? o.linkWithReviews : o.linkWithoutReviews);
+  const link = (o.reviewsIncluded || o.single) ? o.link : (rev ? o.linkWithReviews : o.linkWithoutReviews);
   const err = document.getElementById("err");
   if (!/^https:\/\/(buy|checkout)\.stripe\.com\//.test(link) || /CHANGE-ME/.test(link)) {
     err.hidden = false;
