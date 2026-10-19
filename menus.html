@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Choose your menu option | Pour &amp; Pixel</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 420'%3E%3Crect x='20' y='20' width='380' height='380' rx='60' fill='%231F3A5F'/%3E%3Cpath d='M210 70C178 118 122 172 122 236a88 88 0 0 0 176 0c0-64-56-118-88-166z' fill='%23F4EBDD'/%3E%3Crect x='178' y='214' width='64' height='64' rx='8' fill='%232A9D8F'/%3E%3C/svg%3E">
+<script>
+/* =====================================================================
+   YOUR MENU OPTIONS - this is the only part you need to edit.
+   Paste in the Stripe payment links (they start https://buy.stripe.com/...).
+     linkWithReviews    = the option + Review Care (£49/month)
+     linkWithoutReviews = the option on its own
+   The bundle already includes Review Care and the website Care Plan, so it has ONE link.
+   ===================================================================== */
+const OPTIONS = [
+  { id: "template", name: "Menu Template",
+    price: "£50", blurb: "Your menu in the design from your free sample, as your own Canva template (free account). Change dishes and prices whenever you like. Sent within 1 working day.",
+    linkWithReviews: "https://buy.stripe.com/9B6cN62Nb8Xy3Zu5CD73G0j", linkWithoutReviews: "https://buy.stripe.com/00w00k4Vj8Xy7bGe9973G0d" },
+  { id: "design", name: "Menu Design",
+    price: "£249", blurb: "Your whole menu (food and drinks) designed to sell, by a food & beverage professional from 5-star hotels worldwide. Print-ready, plus versions for your website and delivery apps.",
+    linkWithReviews: "https://buy.stripe.com/28EfZi5Zn7Tu7bG7KL73G0k", linkWithoutReviews: "https://buy.stripe.com/4gMdRa9bzddOcw06GH73G0e" },
+  { id: "bundle", name: "Hospitality Bundle",
+    price: "£795 + £59/month", reviewsIncluded: true,
+    blurb: "A new website, your Menu Design, Review Care and website care, all in one. The £59/month covers Review Care and the website Care Plan.",
+    link: "https://buy.stripe.com/dRm00kfzXflW0Ni7KL73G0l" },
+];
+const REVIEW_CARE = { name: "Review Care", price: "£49/month",
+  blurb: "Every Google review answered within 48 hours, plus a monthly Google post. Cancel any time." };
+const CONTACT_EMAIL = "hello@pourandpixel.co.uk";
+</script>
+<style>
+:root{--navy:#1F3A5F;--teal:#2A9D8F;--teal-strong:#1E7A6F;--surface:#FBF8F3;--sand:#F4EBDD;--tint:#CFE6E2;--ink:#14263D;--muted:#5B6878;--line:#E2D8C7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.55 "Inter",system-ui,-apple-system,sans-serif}
+h1{font-family:"Fraunces",Georgia,serif;font-weight:600;color:var(--navy);margin:0}
+header{background:var(--navy)}
+header .in{max-width:880px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;gap:12px}
+header span{font:600 22px "Fraunces",Georgia,serif;color:var(--sand)}
+main{max-width:880px;margin:0 auto;padding:36px 20px 60px}
+.lead{color:var(--muted);margin:8px 0 28px;font-size:17px}
+.step{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-strong);margin:0 0 10px}
+fieldset{border:0;padding:0;margin:0 0 28px}
+legend{padding:0}
+.opts{display:grid;gap:12px}
+.opt{display:flex;gap:14px;align-items:flex-start;background:#fff;border:2px solid var(--line);border-radius:12px;padding:18px;cursor:pointer}
+.opt:hover{border-color:var(--teal)}
+.opt input{margin-top:4px;width:20px;height:20px;accent-color:var(--teal-strong);flex:none}
+.opt.on{border-color:var(--teal-strong);background:#F6FBFA}
+.opt .t{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;width:100%}
+.opt b{font-size:18px;color:var(--navy)}.opt .p{font-weight:600;color:var(--navy);white-space:nowrap}
+.opt small{display:block;color:var(--muted);font-size:14px;margin-top:2px}
+.tag{display:inline-block;margin-left:8px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--tint);color:var(--navy);padding:2px 8px;border-radius:999px;vertical-align:middle}
+.sum{background:var(--sand);border-radius:12px;padding:20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.sum p{margin:0}.sum .tot{font:600 20px "Fraunces",Georgia,serif;color:var(--navy)}
+button{font:inherit;font-weight:600;font-size:17px;background:var(--teal-strong);color:#fff;border:0;border-radius:12px;padding:14px 26px;min-height:48px;cursor:pointer}
+button:hover{background:var(--navy)}button:disabled{opacity:.5;cursor:default}
+.note{color:var(--muted);font-size:14px;margin-top:16px}
+.err{color:#A6402C;font-weight:600;margin-top:12px}
+a{color:var(--teal-strong)}
+</style>
+</head>
+<body>
+<header><div class="in">
+ <svg viewBox="0 0 420 420" width="36" height="36" aria-hidden="true"><rect x="20" y="20" width="380" height="380" rx="60" fill="#2C4E78"/><path d="M210 70C178 118 122 172 122 236a88 88 0 0 0 176 0c0-64-56-118-88-166z" fill="#F4EBDD"/><rect x="178" y="214" width="64" height="64" rx="8" fill="#2A9D8F"/></svg>
+ <span>Pour &amp; Pixel</span>
+</div></header>
+<main>
+ <h1 id="title">Choose your menu option</h1>
+ <p class="lead">Pick your option, add Review Care if you'd like it, then pay securely with Stripe.</p>
+
+ <fieldset>
+  <legend class="step">Step 1 &middot; Your menu</legend>
+  <div class="opts" id="options"></div>
+ </fieldset>
+
+ <fieldset>
+  <legend class="step" id="revstep">Step 2 &middot; Add Review Care? (optional)</legend>
+  <div class="opts" id="reviews"></div>
+ </fieldset>
+
+ <div class="sum">
+  <div><p id="sumline">Choose an option above</p><p class="tot" id="total"></p></div>
+  <button id="go" disabled>Continue to secure payment</button>
+ </div>
+ <p class="err" id="err" hidden></p>
+ <p class="note">Payments are handled by Stripe. Questions? Email <a id="mail"></a> and we'll help.</p>
+</main>
+<script>
+const qs = new URLSearchParams(location.search);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let opt = OPTIONS.find(o => o.id === qs.get("option")) ? qs.get("option") : null;
+let rev = qs.get("reviews") === "yes" ? true : (qs.get("reviews") === "no" ? false : null);
+
+const biz = qs.get("business");
+if (biz) {
+  document.getElementById("title").textContent = "Your new menu, " + biz;
+  document.title = biz + " | Choose your menu option | Pour & Pixel";
+}
+document.getElementById("mail").textContent = CONTACT_EMAIL;
+document.getElementById("mail").href = "mailto:" + CONTACT_EMAIL;
+
+function draw() {
+  const sel = OPTIONS.find(x => x.id === opt);
+  const incl = !!(sel && sel.reviewsIncluded);
+  document.getElementById("revstep").parentElement.hidden = incl;
+  document.getElementById("options").innerHTML = OPTIONS.map(o => `
+    <label class="opt ${opt === o.id ? "on" : ""}">
+      <input type="radio" name="opt" value="${o.id}" ${opt === o.id ? "checked" : ""}>
+      <span style="width:100%"><span class="t"><b>${esc(o.name)}${o.id === "design" ? '<span class="tag">Like your free sample</span>' : ""}</b>
+      <span class="p">${esc(o.price)}</span></span><small>${esc(o.blurb)}</small></span>
+    </label>`).join("");
+  document.getElementById("reviews").innerHTML = `
+    <label class="opt ${rev === true ? "on" : ""}"><input type="radio" name="rev" value="yes" ${rev === true ? "checked" : ""}>
+      <span style="width:100%"><span class="t"><b>Yes, add ${esc(REVIEW_CARE.name)}</b><span class="p">${esc(REVIEW_CARE.price)}</span></span>
+      <small>${esc(REVIEW_CARE.blurb)}</small></span></label>
+    <label class="opt ${rev === false ? "on" : ""}"><input type="radio" name="rev" value="no" ${rev === false ? "checked" : ""}>
+      <span style="width:100%"><span class="t"><b>No thanks, just the menu</b><span class="p"></span></span></span></label>`;
+  document.querySelectorAll('input[name=opt]').forEach(i => i.onchange = () => { opt = i.value; draw(); });
+  document.querySelectorAll('input[name=rev]').forEach(i => i.onchange = () => { rev = i.value === "yes"; draw(); });
+  if (incl) {
+    document.getElementById("sumline").textContent = sel.name + " (Review Care included)";
+    document.getElementById("total").textContent = sel.price;
+    document.getElementById("go").disabled = false;
+    return;
+  }
+  document.getElementById("sumline").textContent = sel ? sel.name + (rev ? " + " + REVIEW_CARE.name : rev === false ? " (no Review Care)" : "") : "Choose an option above";
+  document.getElementById("total").textContent = sel ? sel.price + (rev ? " today, then " + REVIEW_CARE.price : "") : "";
+  document.getElementById("go").disabled = !(sel && rev !== null);
+}
+
+document.getElementById("go").onclick = () => {
+  const o = OPTIONS.find(x => x.id === opt);
+  const link = o.reviewsIncluded ? o.link : (rev ? o.linkWithReviews : o.linkWithoutReviews);
+  const err = document.getElementById("err");
+  if (!/^https:\/\/(buy|checkout)\.stripe\.com\//.test(link) || /CHANGE-ME/.test(link)) {
+    err.hidden = false;
+    err.textContent = "Sorry, this payment option isn't set up yet. Please email " + CONTACT_EMAIL + " and we'll sort it out.";
+    return;
+  }
+  const u = new URL(link);
+  if (qs.get("email")) u.searchParams.set("prefilled_email", qs.get("email"));
+  if (qs.get("ref")) u.searchParams.set("client_reference_id", qs.get("ref"));
+  location.href = u.toString();
+};
+draw();
+</script>
+</body>
+</html>
